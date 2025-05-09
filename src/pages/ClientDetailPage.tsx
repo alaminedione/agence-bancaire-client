@@ -9,18 +9,28 @@ import {
   Alert,
   Modal,
   Badge,
-  Stack, // Import Stack
+  Stack,
+  Paper, // Import Paper
+  Divider, // Import Divider
+  Loader, // Import Loader
+  Center, // Import Center
 } from '@mantine/core';
 import {
   AlertCircle,
   Plus,
   Trash,
-  Edit, // Import Edit icon
+  Edit,
+  User, // Import User icon
+  Phone, // Import Phone icon
+  Calendar, // Import Calendar icon
+  MapPin, // Import MapPin icon
+  CreditCard, // Import CreditCard icon
+  ArrowLeft, // Import ArrowLeft icon
 } from 'lucide-react';
 import { getClientByMatricule, deleteClient } from '../api/clients';
 import { getClientAccounts, deleteAccount } from '../api/accounts';
 import MainLayout from '../components/layout/MainLayout';
-import AccountSummary from '../components/dashboard/AccountSummary'; // Import AccountSummary
+import AccountSummary from '../components/dashboard/AccountSummary';
 import { Client, Account } from '../types';
 
 const ClientDetailPage: React.FC = () => {
@@ -98,7 +108,12 @@ const ClientDetailPage: React.FC = () => {
   if (loading) {
     return (
       <MainLayout>
-        <Text>Chargement des données du client...</Text>
+        <Center style={{ height: 'calc(100vh - 140px)' }}>
+          <Stack align="center">
+            <Loader size="lg" />
+            <Text>Chargement des données du client...</Text>
+          </Stack>
+        </Center>
       </MainLayout>
     );
   }
@@ -106,16 +121,19 @@ const ClientDetailPage: React.FC = () => {
   if (error || !client) {
     return (
       <MainLayout>
-        <Alert
-          icon={<AlertCircle size={16} />}
-          title="Erreur"
-          color="red"
-        >
-          {error || "Client non trouvé."}
-        </Alert>
-        <Button component={Link} to="/clients" mt="md">
-          Retour à la liste des clients
-        </Button>
+        <Paper p="xl" radius="md" withBorder>
+          <Alert
+            icon={<AlertCircle size={16} />}
+            title="Erreur"
+            color="red"
+            mb="lg"
+          >
+            {error || "Client non trouvé."}
+          </Alert>
+          <Button component={Link} to="/clients" leftSection={<ArrowLeft size={16} />}>
+            Retour à la liste des clients
+          </Button>
+        </Paper>
       </MainLayout>
     );
   }
@@ -163,8 +181,56 @@ const ClientDetailPage: React.FC = () => {
         </Group>
       </Group>
 
+      {error && (
+        <Alert
+          icon={<AlertCircle size={16} />}
+          title="Erreur"
+          color="red"
+          mb="md"
+        >
+          {error}
+        </Alert>
+      )}
+
+      {/* Client Details */}
+      <Paper p="xl" radius="md" withBorder mb="xl">
+        <Stack spacing="md">
+          <Group>
+            <User size={20} />
+            <Title order={4}>Informations personnelles</Title>
+          </Group>
+
+          <Divider />
+
+          <Grid gutter="md">
+            <Grid.Col span={{ base: 12, sm: 6 }}>
+              <Group spacing="xs">
+                <Phone size={16} color="gray" />
+                <Text size="sm" c="dimmed">Téléphone:</Text>
+                <Text size="sm">{client.numero_telephone}</Text>
+              </Group>
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 6 }}>
+              <Group spacing="xs">
+                <Calendar size={16} color="gray" />
+                <Text size="sm" c="dimmed">Âge:</Text>
+                <Text size="sm">{client.age} ans</Text>
+              </Group>
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <Group align="flex-start" spacing="xs">
+                <MapPin size={16} color="gray" />
+                <Text size="sm" c="dimmed">Adresse:</Text>
+                <Text size="sm" style={{ flex: 1 }}>{client.adresse}</Text>
+              </Group>
+            </Grid.Col>
+          </Grid>
+        </Stack>
+      </Paper>
+
+
       {/* Accounts List */}
-      <Title order={3} mt="xl" mb="md">Comptes</Title>
+      <Title order={3} mt="xl" mb="md">Comptes ({accounts.length})</Title>
       {accounts.length > 0 ? (
         <Grid gutter="md">
           {accounts.map(account => (
@@ -191,7 +257,13 @@ const ClientDetailPage: React.FC = () => {
           ))}
         </Grid>
       ) : (
-        <Text c="dimmed">Aucun compte trouvé pour ce client.</Text>
+        <Alert
+          icon={<AlertCircle size={16} />}
+          title="Aucun compte"
+          color="blue"
+        >
+          Ce client n'a pas encore de comptes. Créez un nouveau compte en cliquant sur le bouton "Nouveau compte" ci-dessus.
+        </Alert>
       )}
 
 
@@ -242,4 +314,4 @@ const ClientDetailPage: React.FC = () => {
   );
 };
 
-export default ClientDetailPage
+export default ClientDetailPage;
