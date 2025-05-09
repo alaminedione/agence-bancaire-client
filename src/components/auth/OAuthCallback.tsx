@@ -21,15 +21,16 @@ const OAuthCallback: React.FC = () => {
         // Parse and set user data if available
         if (userData) {
           const user = JSON.parse(atob(userData));
+          // Ensure the user object matches the updated User type
           setUser({
-            id: user.sub || user.id,
             email: user.email,
+            isAuthenticated: true,
+            id: user.sub || user.id,
             name: user.name,
             picture: user.picture,
-            isAuthenticated: true
           });
         }
-        
+
         // Redirect to the dashboard
         navigate('/dashboard');
       } catch (err) {

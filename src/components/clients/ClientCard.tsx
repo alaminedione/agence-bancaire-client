@@ -12,12 +12,6 @@ interface ClientCardProps {
 const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
   return (
     <Card 
-      shadow="sm" 
-      padding="lg" 
-      radius="md" 
-      withBorder
-      component={Link} // Make the entire card a link
-      to={`/clients/${client.matricule}`}
       shadow="sm"
       padding="lg"
       radius="md"

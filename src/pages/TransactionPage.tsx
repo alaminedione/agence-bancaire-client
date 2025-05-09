@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Paper, Alert, Button } from '@mantine/core';
-import { AlertCircle, ArrowLeft } from 'lucide-react';
-import { getAccountByNumber, deposit, withdraw } from '../api/accounts';
-import TransactionForm from '../components/transactions/TransactionForm';
-import MainLayout from '../components/layout/MainLayout';
-import { Account, DepositWithdrawPayload } from '../types';
-
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import { Paper, Alert, Button, Stack, Text, Center, Loader } from '@mantine/core'; // Import Stack, Text, Center, Loader
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 import { getAccountByNumber, deposit, withdraw } from '../api/accounts';

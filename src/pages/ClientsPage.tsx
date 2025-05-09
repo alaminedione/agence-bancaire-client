@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Title, Text, Group, Button, Grid, Alert, Modal } from '@mantine/core';
+import { Title, Text, Group, Button, Grid, Alert, Modal, Skeleton } from '@mantine/core'; // Import Skeleton
 import { Plus, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getClients, deleteClient } from '../api/clients';

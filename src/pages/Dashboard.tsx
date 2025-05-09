@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Title, Text, Group, Button, Grid, Skeleton, Alert, Card, Badge } from '@mantine/core'; // Import Card and Badge
+import { Title, Text, Group, Button, Grid, Skeleton, Alert, Card, Badge, Loader, Center, Stack } from '@mantine/core'; // Import Card, Badge, Loader, Center, Stack
 import { Plus, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getClients } from '../api/clients';

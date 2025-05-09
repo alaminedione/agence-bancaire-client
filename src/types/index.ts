@@ -44,6 +44,10 @@ export interface RegisterCredentials extends LoginCredentials {}
 export interface User {
   email: string;
   isAuthenticated: boolean;
+  // Optional fields for OAuth login
+  id?: string;
+  name?: string;
+  picture?: string;
 }
 
 export interface AuthState {

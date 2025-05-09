@@ -1,15 +1,5 @@
 import React from 'react';
 import { Card, Text, Group, Badge, Divider, Stack, Title, ActionIcon } from '@mantine/core';
-import { ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Account, CheckingAccount, SavingsAccount } from '../../types';
-
-interface AccountSummaryProps {
-  account: Account;
-}
-
-import React from 'react';
-import { Card, Text, Group, Badge, Divider, Stack, Title, ActionIcon } from '@mantine/core';
 import { ExternalLink, CreditCard, Calendar } from 'lucide-react'; // Import CreditCard and Calendar
 import { Link } from 'react-router-dom';
 import { Account, CheckingAccount, SavingsAccount } from '../../types';

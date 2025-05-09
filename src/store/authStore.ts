@@ -30,15 +30,15 @@ const useAuthStore = create<AuthState>((set) => ({
       if (response.status === 200) {
         // Store auth header for future requests
         localStorage.setItem('auth_header', authHeader);
-        
+
         // Set user state
-        set({ 
+        set({
           user: { email: credentials.email, isAuthenticated: true },
           isAuthenticated: true,
           isLoading: false,
           error: null
         });
-        
+
         notifications.show({
           title: 'Connexion réussie',
           message: 'Bienvenue dans votre espace bancaire',
