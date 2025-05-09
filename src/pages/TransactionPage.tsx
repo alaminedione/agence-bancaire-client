@@ -167,7 +167,6 @@ const TransactionPage: React.FC = () => {
           type={type as 'deposit' | 'withdrawal'}
           onSubmit={handleTransaction}
           isLoading={actionLoading}
-          isLoading={actionLoading}
           error={error}
           client={client} // Pass client data to TransactionForm
         />
