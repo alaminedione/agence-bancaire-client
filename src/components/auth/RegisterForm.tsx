@@ -66,8 +66,6 @@ const RegisterForm: React.FC = () => {
             label="Mot de passe"
             placeholder="Choisissez un mot de passe"
             required
-            placeholder="Choisissez un mot de passe"
-            required
             {...form.getInputProps('password')}
           />
 
