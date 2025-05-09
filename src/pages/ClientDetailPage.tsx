@@ -9,6 +9,7 @@ import {
   Alert,
   Modal,
   Badge,
+  Stack, // Import Stack
 } from '@mantine/core';
 import {
   AlertCircle,
@@ -158,7 +159,24 @@ const ClientDetailPage: React.FC = () => {
         <Grid gutter="md">
           {accounts.map(account => (
             <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={account.numero_compte}>
-              <AccountSummary account={account} />
+              {/* Wrap AccountSummary and delete button */}
+              <Stack spacing="sm"> {/* Use Stack for vertical alignment */}
+                <AccountSummary account={account} />
+                <Group justify="flex-end"> {/* Align button to the right */}
+                  <Button
+                    variant="outline"
+                    color="red"
+                    size="sm"
+                    leftSection={<Trash size={14} />}
+                    onClick={() => {
+                      setAccountToDelete(account.numero_compte);
+                      setDeleteAccountModalOpen(true);
+                    }}
+                  >
+                    Supprimer le compte
+                  </Button>
+                </Group>
+              </Stack>
             </Grid.Col>
           ))}
         </Grid>
