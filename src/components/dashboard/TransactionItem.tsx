@@ -13,7 +13,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
-      currency: 'EUR',
+      currency: 'XOF', // Changed from EUR to XOF
     }).format(amount);
   };
   
