@@ -62,11 +62,13 @@ const LoginForm: React.FC = () => {
             label="Mot de passe"
             placeholder="Votre mot de passe"
             required
+            placeholder="Votre mot de passe"
+            required
             {...form.getInputProps('password')}
           />
-          
-          <Button 
-            type="submit" 
+
+          <Button
+            type="submit"
             loading={isLoading}
             fullWidth
           >

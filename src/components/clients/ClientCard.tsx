@@ -18,6 +18,12 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
       withBorder
       component={Link} // Make the entire card a link
       to={`/clients/${client.matricule}`}
+      shadow="sm"
+      padding="lg"
+      radius="md"
+      withBorder
+      component={Link} // Make the entire card a link
+      to={`/clients/${client.matricule}`}
       style={{ cursor: 'pointer' }} // Add cursor style to indicate clickability
     >
       <Card.Section withBorder inheritPadding py="xs">
@@ -55,7 +61,7 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
           </Group>
         </Group>
       </Card.Section>
-      
+
       <Stack mt="md" spacing="xs">
         <Group justify="space-between">
           <Group spacing={5}>
@@ -66,7 +72,7 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
             {client.sexe === 'M' ? 'Homme' : 'Femme'}
           </Badge>
         </Group>
-        
+
         <Group justify="space-between">
           <Group spacing={5}>
             <Phone size={16} color="gray" />
@@ -74,7 +80,7 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
           </Group>
           <Text size="sm">{client.numero_telephone}</Text>
         </Group>
-        
+
         <Group justify="space-between">
           <Group spacing={5}>
             <Calendar size={16} color="gray" />
@@ -82,7 +88,7 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
           </Group>
           <Text size="sm">{client.age} ans</Text>
         </Group>
-        
+
         <Group justify="space-between">
           <Group spacing={5}>
             <CreditCard size={16} color="gray" />
@@ -90,14 +96,14 @@ const ClientCard: React.FC<ClientCardProps> = ({ client, onDelete }) => {
           </Group>
           <Text size="sm">{client.comptes?.length || 0}</Text>
         </Group>
-        
+
         <Group align="flex-start" spacing={5}>
           <MapPin size={16} color="gray" />
           <Text size="sm" c="dimmed">Adresse:</Text>
           <Text size="sm" style={{ flex: 1 }}>{client.adresse}</Text>
         </Group>
       </Stack>
-      
+
       {/* Removed the separate "Voir détails" ActionIcon as the whole card is now a link */}
     </Card>
   );

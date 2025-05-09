@@ -35,28 +35,28 @@ const AccountDetailPage: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       if (!accountNumber) return;
-      
+
       try {
         setLoading(true);
-        
+
         // Fetch account details
         const accountData = await getAccountByNumber(accountNumber);
         setAccount(accountData);
-        
+
         // Fetch client details if client information is available
         if (accountData.client?.matricule) {
           const clientData = await getClientByMatricule(accountData.client.matricule);
           setClient(clientData);
         }
-        
+
         // Fetch transactions
         const transactionsData = await getAccountTransactions(accountNumber);
         setTransactions(transactionsData);
-        
+
         setError(null);
       } catch (err) {
         console.error('Error fetching account details:', err);
@@ -65,48 +65,56 @@ const AccountDetailPage: React.FC = () => {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [accountNumber]);
-  
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
       currency: 'XOF', // Changed from EUR to XOF
     }).format(amount);
   };
-  
+
   const isCheckingAccount = account && 'decouvertAutorise' in account;
   const isSavingsAccount = account && 'tauxInteret' in account;
-  
+
   if (loading) {
     return (
       <MainLayout>
-        <Text>Chargement des données du compte...</Text>
+        <Paper p="xl" radius="md" withBorder>
+          <Stack align="center">
+            <Loader size="lg" />
+            <Text>Chargement des données du compte...</Text>
+          </Stack>
+        </Paper>
       </MainLayout>
     );
   }
-  
+
   if (error || !account) {
     return (
       <MainLayout>
-        <Alert 
-          icon={<AlertCircle size={16} />} 
-          title="Erreur" 
-          color="red"
-        >
-          {error || "Compte non trouvé."}
-        </Alert>
-        <Button component={Link} to="/dashboard" mt="md">
-          Retour au tableau de bord
-        </Button>
+        <Paper p="xl" radius="md" withBorder>
+          <Alert
+            icon={<AlertCircle size={16} />}
+            title="Erreur"
+            color="red"
+            mb="lg"
+          >
+            {error || "Compte non trouvé."}
+          </Alert>
+          <Button component={Link} to="/dashboard" leftSection={<ArrowLeft size={16} />}>
+            Retour au tableau de bord
+          </Button>
+        </Paper>
       </MainLayout>
     );
   }
-  
+
   return (
     <MainLayout>
-      <Group position="apart" mb="lg">
+      <Group justify="space-between" mb="lg">
         <div>
           <Group spacing="sm">
             <Title order={2}>{account.libelle}</Title>
@@ -116,9 +124,9 @@ const AccountDetailPage: React.FC = () => {
           </Group>
           <Text color="dimmed">N° {account.numero_compte}</Text>
         </div>
-        
+
         <Group>
-          <Button 
+          <Button
             component={Link}
             to={`/accounts/${account.numero_compte}/deposit`}
             leftSection={<ArrowDownCircle size={16} />}
@@ -126,8 +134,8 @@ const AccountDetailPage: React.FC = () => {
           >
             Dépôt
           </Button>
-          
-          <Button 
+
+          <Button
             component={Link}
             to={`/accounts/${account.numero_compte}/withdraw`}
             leftSection={<ArrowUpCircle size={16} />}
@@ -138,7 +146,7 @@ const AccountDetailPage: React.FC = () => {
           </Button>
         </Group>
       </Group>
-      
+
       <Grid mb="xl">
         <Grid.Col span={{ base: 12, md: 4 }}>
           <Paper p="md" radius="md" withBorder>
@@ -147,16 +155,16 @@ const AccountDetailPage: React.FC = () => {
                 <CreditCard size={20} />
                 <Title order={4}>Détails du compte</Title>
               </Group>
-              
+
               <Divider />
-              
+
               <Group position="apart">
                 <Text size="sm" color="dimmed">Solde actuel</Text>
                 <Text size="lg" weight={700} color={account.solde >= 0 ? 'green' : 'red'}>
                   {formatCurrency(account.solde)}
                 </Text>
               </Group>
-              
+
               {isCheckingAccount && (
                 <Group position="apart">
                   <Text size="sm" color="dimmed">Découvert autorisé</Text>
@@ -165,7 +173,7 @@ const AccountDetailPage: React.FC = () => {
                   </Text>
                 </Group>
               )}
-              
+
               {isSavingsAccount && (
                 <Group position="apart">
                   <Text size="sm" color="dimmed">Taux d'intérêt</Text>
@@ -174,7 +182,7 @@ const AccountDetailPage: React.FC = () => {
                   </Text>
                 </Group>
               )}
-              
+
               <Group position="apart">
                 <Text size="sm" color="dimmed">Date de création</Text>
                 <Group spacing="xs">
@@ -186,7 +194,7 @@ const AccountDetailPage: React.FC = () => {
               </Group>
             </Stack>
           </Paper>
-          
+
           {client && (
             <Paper p="md" radius="md" withBorder mt="md">
               <Stack spacing="md">
@@ -194,10 +202,10 @@ const AccountDetailPage: React.FC = () => {
                   <User size={20} />
                   <Title order={4}>Titulaire</Title>
                 </Group>
-                
+
                 <Divider />
-                
-                <Button 
+
+                <Button
                   component={Link}
                   to={`/clients/${client.matricule}`}
                   variant="subtle"
@@ -220,7 +228,7 @@ const AccountDetailPage: React.FC = () => {
             </Paper>
           )}
         </Grid.Col>
-        
+
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Tabs defaultValue="transactions">
             <Tabs.List>
@@ -228,7 +236,7 @@ const AccountDetailPage: React.FC = () => {
                 Transactions ({transactions.length})
               </Tabs.Tab>
             </Tabs.List>
-            
+
             <Tabs.Panel value="transactions" pt="md">
               {transactions.length === 0 ? (
                 <Alert
@@ -241,7 +249,7 @@ const AccountDetailPage: React.FC = () => {
               ) : (
                 <Stack spacing="sm">
                   {transactions.map((transaction) => (
-                    <TransactionItem 
+                    <TransactionItem
                       key={transaction.id}
                       transaction={transaction}
                     />

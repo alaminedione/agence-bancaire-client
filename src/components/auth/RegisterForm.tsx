@@ -66,11 +66,13 @@ const RegisterForm: React.FC = () => {
             label="Mot de passe"
             placeholder="Choisissez un mot de passe"
             required
+            placeholder="Choisissez un mot de passe"
+            required
             {...form.getInputProps('password')}
           />
-          
-          <Button 
-            type="submit" 
+
+          <Button
+            type="submit"
             loading={isLoading}
             fullWidth
           >

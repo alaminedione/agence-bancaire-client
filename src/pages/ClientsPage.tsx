@@ -14,6 +14,9 @@ const ClientsPage: React.FC = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<string | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+
+  // State to track if data has been fetched at least once
+  const [hasFetched, setHasFetched] = useState(false);
   
   const fetchClients = async () => {
     try {
@@ -26,12 +29,35 @@ const ClientsPage: React.FC = () => {
       setError('Erreur lors du chargement des clients.');
     } finally {
       setLoading(false);
+      setHasFetched(true); // Mark as fetched
     }
   };
-  
+
   useEffect(() => {
     fetchClients();
   }, []);
+
+  // Show loading skeleton only on initial load
+  if (loading && !hasFetched) {
+    return (
+      <MainLayout>
+        <Group position="apart" mb="lg">
+          <Title order={2}>Gestion des clients</Title>
+          <Button
+            component={Link}
+            to="/clients/new"
+            leftSection={<Plus size={16} />}
+            disabled // Disable button while loading
+          >
+            Nouveau client
+          </Button>
+        </Group>
+        <Skeleton height={100} radius="md" mb="md" />
+        <Skeleton height={100} radius="md" mb="md" />
+        <Skeleton height={100} radius="md" mb="md" />
+      </MainLayout>
+    );
+  }
   
   const handleDeleteClick = (matricule: string) => {
     setClientToDelete(matricule);
@@ -68,22 +94,23 @@ const ClientsPage: React.FC = () => {
           Nouveau client
         </Button>
       </Group>
-      
+
       {error && (
-        <Alert 
-          icon={<AlertCircle size={16} />} 
-          title="Erreur" 
+        <Alert
+          icon={<AlertCircle size={16} />}
+          title="Erreur"
           color="red"
           mb="md"
         >
           {error}
         </Alert>
       )}
-      
-      {loading ? (
-        <Text>Chargement des clients...</Text>
-      ) : clients.length === 0 ? (
-        <Alert 
+
+      {/* Show loading text only after initial fetch if refetching */}
+      {loading && hasFetched && <Text>Mise à jour des clients...</Text>}
+
+      {!loading && clients.length === 0 ? (
+        <Alert
           icon={<AlertCircle size={16} />}
           title="Aucun client"
           color="blue"
@@ -94,15 +121,15 @@ const ClientsPage: React.FC = () => {
         <Grid>
           {clients.map((client) => (
             <Grid.Col key={client.matricule} span={{ base: 12, sm: 6, lg: 4 }}>
-              <ClientCard 
-                client={client} 
+              <ClientCard
+                client={client}
                 onDelete={handleDeleteClick}
               />
             </Grid.Col>
           ))}
         </Grid>
       )}
-      
+
       <Modal
         opened={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
@@ -110,11 +137,11 @@ const ClientsPage: React.FC = () => {
         centered
       >
         <Text mb="lg">
-          Êtes-vous sûr de vouloir supprimer ce client ? Cette action est irréversible 
+          Êtes-vous sûr de vouloir supprimer ce client ? Cette action est irréversible
           et supprimera également tous les comptes associés.
         </Text>
-        
-        <Group position="right">
+
+        <Group justify="flex-end">
           <Button variant="outline" onClick={() => setDeleteModalOpen(false)}>
             Annuler
           </Button>
