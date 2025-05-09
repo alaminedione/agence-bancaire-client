@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Paper, Alert, Text, Center, Loader } from '@mantine/core';
+import { Paper, Alert, Text, Center, Loader, Stack } from '@mantine/core';
 import { AlertCircle } from 'lucide-react';
 import { getClientByMatricule, updateClient } from '../api/clients';
 import ClientForm from '../components/clients/ClientForm';
