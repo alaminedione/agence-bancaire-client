@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { 
-  Title, 
-  Text, 
-  Group, 
-  Button, 
-  Grid, 
-  Paper, 
-  Stack, 
+import {
+  Title,
+  Text,
+  Group,
+  Button,
+  Grid,
+  Paper,
+  Stack,
   Divider,
   Alert,
   Badge,
   Tabs,
 } from '@mantine/core';
-import { 
-  AlertCircle, 
+import {
+  AlertCircle,
   ArrowDownCircle,
   ArrowUpCircle,
   Clock,
@@ -84,7 +84,6 @@ const AccountDetailPage: React.FC = () => {
       <MainLayout>
         <Paper p="xl" radius="md" withBorder>
           <Stack align="center">
-            <Loader size="lg" />
             <Text>Chargement des données du compte...</Text>
           </Stack>
         </Paper>
