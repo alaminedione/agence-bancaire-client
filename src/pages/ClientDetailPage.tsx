@@ -162,15 +162,6 @@ const ClientDetailPage: React.FC = () => {
           </Button>
 
           <Button
-            component={Link}
-            to={`/clients/${client.matricule}/accounts/new`}
-            leftSection={<Plus size={16} />}
-            variant="outline"
-          >
-            Nouveau compte
-          </Button>
-
-          <Button
             color="red"
             variant="subtle"
             leftSection={<Trash size={16} />}
@@ -180,6 +171,8 @@ const ClientDetailPage: React.FC = () => {
           </Button>
         </Group>
       </Group>
+
+      {/* Client Details */}
 
       {error && (
         <Alert
@@ -230,7 +223,18 @@ const ClientDetailPage: React.FC = () => {
 
 
       {/* Accounts List */}
-      <Title order={3} mt="xl" mb="md">Comptes ({accounts.length})</Title>
+      <Group justify="space-between" mt="xl" mb="md">
+        <Title order={3}>Comptes ({accounts.length})</Title>
+        <Button
+          component={Link}
+          to={`/clients/${client.matricule}/accounts/new`}
+          leftSection={<Plus size={16} />}
+          variant="outline"
+          size="sm"
+        >
+          Nouveau compte
+        </Button>
+      </Group>
       {accounts.length > 0 ? (
         <Grid gutter="md">
           {accounts.map(account => (
