@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Plus,
   Trash,
+  Edit, // Import Edit icon
 } from 'lucide-react';
 import { getClientByMatricule, deleteClient } from '../api/clients';
 import { getClientAccounts, deleteAccount } from '../api/accounts';
