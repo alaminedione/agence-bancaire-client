@@ -113,6 +113,18 @@ const AccountDetailPage: React.FC = () => {
 
   return (
     <MainLayout>
+      {client && (
+        <Button
+          component={Link}
+          to={`/clients/${client.matricule}`}
+          leftSection={<ArrowLeft size={16} />}
+          variant="subtle"
+          mb="lg"
+        >
+          Retour au client
+        </Button>
+      )}
+
       <Group justify="space-between" mb="lg">
         <div>
           <Group spacing="sm">
