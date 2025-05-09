@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import ClientsPage from './pages/ClientsPage';
 import ClientDetailPage from './pages/ClientDetailPage';
 import CreateClientPage from './pages/CreateClientPage';
+import EditClientPage from './pages/EditClientPage';
 import CreateAccountPage from './pages/CreateAccountPage';
 import AccountDetailPage from './pages/AccountDetailPage';
 import TransactionPage from './pages/TransactionPage';
@@ -80,6 +81,12 @@ function App() {
           <Route path="/clients/:matricule" element={
             <ProtectedRoute>
               <ClientDetailPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/clients/:matricule/edit" element={
+            <ProtectedRoute>
+              <EditClientPage />
             </ProtectedRoute>
           } />
           

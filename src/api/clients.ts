@@ -16,6 +16,11 @@ export const createClient = async (client: Omit<Client, 'comptes'>): Promise<Cli
   return response.data;
 };
 
+export const updateClient = async (matricule: string, client: Omit<Client, 'comptes'>): Promise<Client> => {
+  const response = await axiosInstance.put(`/clients/${matricule}`, client);
+  return response.data;
+};
+
 export const deleteClient = async (matricule: string): Promise<void> => {
   await axiosInstance.delete(`/clients/${matricule}`);
 };

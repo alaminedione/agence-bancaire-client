@@ -135,6 +135,15 @@ const ClientDetailPage: React.FC = () => {
         <Group>
           <Button
             component={Link}
+            to={`/clients/${client.matricule}/edit`}
+            leftSection={<Edit size={16} />}
+            variant="outline"
+          >
+            Modifier
+          </Button>
+
+          <Button
+            component={Link}
             to={`/clients/${client.matricule}/accounts/new`}
             leftSection={<Plus size={16} />}
             variant="outline"
