@@ -12,6 +12,7 @@ interface TransactionFormProps {
   onSubmit: (values: DepositWithdrawPayload) => void;
   isLoading: boolean;
   error: string | null;
+  client?: Client; // Add client prop
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({
@@ -20,7 +21,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   type,
   onSubmit,
   isLoading,
-  error
+  error,
+  client // Destructure client prop
 }) => {
   const form = useForm({
     initialValues: {
@@ -38,6 +40,20 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
   return (
     <Box>
+      {/* Display Client Information if available */}
+      {client && (
+        <Paper p="md" radius="md" withBorder mb="lg">
+          <Stack spacing="sm">
+            <Group>
+              <User size={20} />
+              <Title order={4}>Titulaire</Title>
+            </Group>
+            <Text weight={500}>{client.prenom} {client.nom}</Text>
+            <Text size="sm" color="dimmed">Matricule: {client.matricule}</Text>
+          </Stack>
+        </Paper>
+      )}
+
       <Stack align="center" mb="lg">
         {type === 'deposit' ? (
           <ArrowDownCircle size={48} color="#40c057" />
